@@ -1,6 +1,7 @@
 package com.williameliasson.timetracker.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class SessionService {
     public List<Session> findAll(){
         List<Session> sessions = sessionRepository.findAll();
         return sessions;
+    }
+
+    public Optional<Session> findById(String id){
+        return sessionRepository.findById(id);
     }
 
 }
