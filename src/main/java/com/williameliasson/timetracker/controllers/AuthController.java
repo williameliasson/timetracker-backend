@@ -22,10 +22,9 @@ public class AuthController {
     }
 
     @PostMapping("/api/auth/register")
-    public UserDisplayDTO postMethodName(@RequestBody LoginDTO loginDTO) {
+    public UserDisplayDTO register(@RequestBody LoginDTO loginDTO) {
         User user = userService.registerUser(loginDTO);
         
         return UserMapper.toDisplayDto(user);
-    }
-        
+    }   
 }

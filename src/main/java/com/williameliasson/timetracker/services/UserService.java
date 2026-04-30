@@ -3,6 +3,9 @@ package com.williameliasson.timetracker.services;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.williameliasson.timetracker.dto.LoginDTO;
@@ -14,8 +17,11 @@ import com.williameliasson.timetracker.repositories.UserRepository;
 public class UserService {
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){
+    private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(LoginDTO loginDTO){
@@ -30,10 +36,13 @@ public class UserService {
             throw new IllegalArgumentException("Password cannot be blank");
         }
         User user = new User();
-        user.setUsername(loginDTO.getUsername());
-        user.setPassword(loginDTO.getPassword());
         Set<Role> roles = Set.of(Role.ROLE_USER);
+        String encodedPassword = passwordEncoder.encode(loginDTO.getPassword());
+        
+        user.setUsername(loginDTO.getUsername());
+        user.setPassword(encodedPassword);
         user.setRoles(roles);
+        
         return userRepository.save(user);
     }
 }
