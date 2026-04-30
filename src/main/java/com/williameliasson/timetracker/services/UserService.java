@@ -1,10 +1,12 @@
 package com.williameliasson.timetracker.services;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.williameliasson.timetracker.dto.LoginDTO;
+import com.williameliasson.timetracker.models.Role;
 import com.williameliasson.timetracker.models.User;
 import com.williameliasson.timetracker.repositories.UserRepository;
 
@@ -30,6 +32,8 @@ public class UserService {
         User user = new User();
         user.setUsername(loginDTO.getUsername());
         user.setPassword(loginDTO.getPassword());
+        Set<Role> roles = Set.of(Role.ROLE_USER);
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 }
