@@ -12,4 +12,9 @@ public class ExampleController {
     public String example() {
         return "Example";
     }
+
+    @GetMapping("/authonly")
+    public String getAuthOnly() {
+        return "Auth only!";
+    }
 }
