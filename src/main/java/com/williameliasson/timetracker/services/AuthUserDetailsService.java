@@ -2,7 +2,6 @@ package com.williameliasson.timetracker.services;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
