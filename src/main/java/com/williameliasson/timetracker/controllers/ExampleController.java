@@ -2,6 +2,9 @@ package com.williameliasson.timetracker.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -14,7 +17,7 @@ public class ExampleController {
     }
 
     @GetMapping("/authonly")
-    public String getAuthOnly() {
-        return "Auth only!";
+    public String getAuthOnly(Principal principal) {
+        return "You are " + principal.getName();
     }
 }
