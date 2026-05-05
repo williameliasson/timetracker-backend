@@ -21,6 +21,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests((req) -> req
             .requestMatchers("/api/example/authonly").authenticated()
+            .requestMatchers("/api/me/**").authenticated()
             .anyRequest().permitAll()
             
         )

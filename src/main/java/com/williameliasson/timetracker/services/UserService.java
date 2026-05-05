@@ -1,12 +1,17 @@
 package com.williameliasson.timetracker.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.bson.types.ObjectId;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.williameliasson.timetracker.dto.CategoryCreationDTO;
 import com.williameliasson.timetracker.dto.LoginDTO;
+import com.williameliasson.timetracker.models.Category;
 import com.williameliasson.timetracker.models.Role;
 import com.williameliasson.timetracker.models.User;
 import com.williameliasson.timetracker.repositories.UserRepository;
@@ -42,5 +47,36 @@ public class UserService {
         user.setRoles(roles);
         
         return userRepository.save(user);
+    }
+
+    public List<Category> getCategoriesByUsername(String username){
+        Optional<User> maybeUser = userRepository.findByUsername(username);
+        if (!maybeUser.isPresent()){
+            throw new IllegalArgumentException("User not found");
+        }
+        User user = maybeUser.get();
+        List<Category> categories = user.getCategories();
+        return categories;
+    }
+
+    public Category createCategory(String username, CategoryCreationDTO dto){
+        Optional<User> maybeUser = userRepository.findByUsername(username);
+        if (!maybeUser.isPresent()){
+            throw new IllegalArgumentException("user not found");
+        }
+        User user = maybeUser.get();
+
+        List<Category> categories = user.getCategories();
+        if (categories == null){
+            user.setCategories(new ArrayList<>());
+            categories = user.getCategories();
+        }
+        Category category = new Category();
+        category.setName(dto.getName());
+        category.setId(new ObjectId());
+        categories.add(category);
+        userRepository.save(user);    
+    
+        return category;
     }
 }
