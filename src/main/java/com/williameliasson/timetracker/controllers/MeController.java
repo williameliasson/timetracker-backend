@@ -4,6 +4,7 @@ import com.williameliasson.timetracker.services.SessionService;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.williameliasson.timetracker.dto.CategoryCreationDTO;
+import com.williameliasson.timetracker.dto.CategoryPatchDTO;
 import com.williameliasson.timetracker.dto.SessionCreationDTO;
 import com.williameliasson.timetracker.dto.SessionDisplayDTO;
 import com.williameliasson.timetracker.dto.SessionPatchDTO;
@@ -54,6 +55,11 @@ public class MeController {
         return category;
     }
 
+    @PatchMapping("/categories/{id}")
+    public Category patchMyCategory(@PathVariable("id") String id, Principal principal, @RequestBody CategoryPatchDTO dto){
+        return userService.changeCategoryNameById(id, dto.getName(), principal.getName());
+    }
+
     @GetMapping("/sessions")
     public List<SessionDisplayDTO> getMySessions(Principal principal) {
         String username = principal.getName();
@@ -72,5 +78,6 @@ public class MeController {
     public Session patchMySession(@PathVariable("id") String sessionId, @RequestBody SessionPatchDTO dto, Principal principal){
         return sessionService.closeSessionById(sessionId, dto.getEndTime(), principal.getName());
     }
+
     
 }

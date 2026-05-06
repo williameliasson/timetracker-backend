@@ -98,4 +98,30 @@ public class UserService {
 
         return foundCategory;
     }
+
+    public Category changeCategoryNameById(String categoryId, String newName, String username){
+        Category category = getCategoryById(new ObjectId(categoryId));
+        Optional<User> maybeUser = userRepository.findByUsername(username);
+         if (!maybeUser.isPresent()){
+            throw new IllegalArgumentException("User not found");
+        }
+        User user = maybeUser.get();
+        
+        // Check if user is owner of category
+        Category embeddedCategory = null;
+        for (Category c : user.getCategories()){
+            if (c.getId().equals(category.getId())){
+                embeddedCategory = c;
+            }
+        }
+        if (embeddedCategory == null){
+                throw new IllegalArgumentException("User not owner of category");
+        }
+        // if (!user.getCategories().contains(category)){
+        //     throw new IllegalArgumentException("User not owner of category");
+        // }
+        embeddedCategory.setName(newName);
+        userRepository.save(user);
+        return embeddedCategory;
+    }
 }
