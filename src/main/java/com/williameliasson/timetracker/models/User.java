@@ -1,6 +1,7 @@
 package com.williameliasson.timetracker.models;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,8 @@ public class User implements UserDetails{
     private String password;
 
     private Set<Role> roles;
+
+    private List<Category> categories;
 
     public User(){
 
@@ -55,5 +58,13 @@ public class User implements UserDetails{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -6,14 +6,19 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import tools.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.databind.ser.std.ToStringSerializer;
+
 @Document(collection = "sessions")
 public class Session {
     @Id
     private String id;
     private Instant startTime;
     private Instant endTime;
-
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId categoryId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId userId;
 
     public Session(){
 
@@ -49,6 +54,14 @@ public class Session {
 
     public void setCategoryId(ObjectId categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public ObjectId getUserId() {
+        return userId;
+    }
+
+    public void setUserId(ObjectId userId) {
+        this.userId = userId;
     }
     
 
