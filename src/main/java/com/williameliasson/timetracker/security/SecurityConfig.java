@@ -31,7 +31,7 @@ public class SecurityConfig {
             .successHandler((req, res, auth) -> res.setStatus(200))
             .failureHandler((req, res, ex) -> res.setStatus(401))
         )
-        .httpBasic(Customizer.withDefaults());
+        .httpBasic(httpBasic -> httpBasic.disable());
 
         return http.build();
     }
