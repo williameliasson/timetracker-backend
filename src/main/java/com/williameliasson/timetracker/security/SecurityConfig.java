@@ -22,6 +22,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((req) -> req
             .requestMatchers("/api/example/authonly").authenticated()
             .requestMatchers("/api/me/**").authenticated()
+            .requestMatchers("/api/sessions/**").authenticated()
             .anyRequest().permitAll()
             
         )

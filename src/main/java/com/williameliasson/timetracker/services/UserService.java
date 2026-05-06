@@ -79,4 +79,23 @@ public class UserService {
     
         return category;
     }
+
+    public Category getCategoryById(ObjectId categoryId){
+        Optional<User> maybeUser = userRepository.findUserByCategoryId(categoryId.toHexString());
+        if (!maybeUser.isPresent()){
+            throw new IllegalArgumentException("Category does not exist on any user");
+        }
+        User user = maybeUser.get();
+        Category foundCategory = null;
+        for (Category category : user.getCategories()){
+            if (category.getId().equals(categoryId)) {
+                foundCategory = category;
+            }
+        }
+        if (foundCategory == null){
+            throw new IllegalArgumentException("Category not found within user");
+        }
+
+        return foundCategory;
+    }
 }

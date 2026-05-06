@@ -8,6 +8,9 @@ import com.williameliasson.timetracker.dto.SessionDisplayDTO;
 import com.williameliasson.timetracker.mapper.SessionMapper;
 import com.williameliasson.timetracker.models.Session;
 import com.williameliasson.timetracker.services.SessionService;
+
+import java.security.Principal;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,12 +22,6 @@ public class SessionController {
 
     public SessionController(SessionService sessionService){
         this.sessionService = sessionService;
-    }
-
-    @PostMapping("")
-    public SessionDisplayDTO createSession(@RequestBody SessionCreationDTO sessionCreationDTO) {
-        Session session = sessionService.create(sessionCreationDTO);
-        return SessionMapper.toDisplayDTO(session);
     }
     
 }
