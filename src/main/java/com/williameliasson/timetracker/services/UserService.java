@@ -124,4 +124,8 @@ public class UserService {
         userRepository.save(user);
         return embeddedCategory;
     }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
 }
