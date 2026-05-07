@@ -8,6 +8,7 @@ public class SessionDisplayDTO {
     private Instant endTime;
 
     private String category;
+    private String categoryId;
 
     public SessionDisplayDTO(){
 
@@ -43,5 +44,13 @@ public class SessionDisplayDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

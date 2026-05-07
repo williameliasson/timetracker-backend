@@ -22,6 +22,7 @@ public class SessionMapper {
         dto.setStartTime(session.getStartTime());
         dto.setEndTime(session.getEndTime());
         dto.setId(session.getId());
+        dto.setCategoryId(session.getCategoryId().toHexString());
         return dto;
     }
 }
