@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.williameliasson.timetracker.dto.SessionCreationDTO;
+import com.williameliasson.timetracker.dto.SessionPatchDTO;
 import com.williameliasson.timetracker.models.Session;
 import com.williameliasson.timetracker.models.User;
 import com.williameliasson.timetracker.repositories.SessionRepository;
@@ -69,7 +70,7 @@ public class SessionService {
         return sessionRepository.findByUserId(new ObjectId(user.getId()));
     }
 
-    public Session closeSessionById(String sessionId, Instant endTime, String username){
+    public Session patchSessionById(String sessionId, SessionPatchDTO dto, String username){
         // Get the session
         Optional<Session> maybeSession = findById(sessionId);
         if (!maybeSession.isPresent()){
@@ -87,8 +88,14 @@ public class SessionService {
             throw new IllegalArgumentException("User does not own session");
         }
 
-        // Set new endtime
-        session.setEndTime(endTime);
+        // Set new endtime if it exists
+        if (dto.getEndTime() != null){
+            session.setEndTime(dto.getEndTime());
+        }
+        // Set new category id
+        if (dto.getCategoryId() != null){
+            session.setCategoryId(new ObjectId(dto.getCategoryId()));
+        }
 
         // save
         sessionRepository.save(session);
