@@ -76,7 +76,7 @@ public class MeController {
 
     @PatchMapping("/sessions/{id}")
     public Session patchMySession(@PathVariable("id") String sessionId, @RequestBody SessionPatchDTO dto, Principal principal){
-        return sessionService.closeSessionById(sessionId, dto.getEndTime(), principal.getName());
+        return sessionService.patchSessionById(sessionId, dto, principal.getName());
     }
 
     
