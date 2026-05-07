@@ -1,7 +1,7 @@
 package com.williameliasson.timetracker.dto;
 
 public class UserSummaryDTO {
-    private Integer totalSeconds;
+    private Long totalSeconds;
     private String username;
     private String userId;
     
@@ -9,11 +9,11 @@ public class UserSummaryDTO {
 
     }
 
-    public Integer getTotalSeconds() {
+    public Long getTotalSeconds() {
         return totalSeconds;
     }
 
-    public void setTotalSeconds(Integer totalSeconds) {
+    public void setTotalSeconds(Long totalSeconds) {
         this.totalSeconds = totalSeconds;
     }
 
